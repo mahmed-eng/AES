@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AES Encryption</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        span {
+            display: block;
+            margin-top: 10px;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>AES Encryption</h2>
+        <label for="text">Data to encrypt:</label>
+        <input id="text" type="text" placeholder="Enter text to encrypt" />
+        <label for="password">Password:</label>
+        <input id="password" type="password" placeholder="Enter password" />
+        <button onclick="encrypt()">Encrypt</button>
+        <span id="EncryptedValue"></span>
+        <button onclick="decrypt()">Decrypt</button>
+        <span id="decrypted"></span>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
+    <script>
+        function encrypt() {
+            var encrypted = CryptoJS.AES.encrypt(
+                document.getElementById("text").value,
+                document.getElementById("password").value
+            );
+            document.getElementById("EncryptedValue").innerHTML = "Encrypted Value:<br>" + encrypted;
+            document.getElementById("decrypted").innerHTML = "";
+        }
+
+        function decrypt() {
+            var decrypted = CryptoJS.AES.decrypt(
+                document.getElementById("EncryptedValue").innerHTML,
+                document.getElementById("password").value
+            ).toString(CryptoJS.enc.Utf8);
+            document.getElementById("decrypted").innerHTML = "Decrypted Value:<br>" + decrypted;
+            document.getElementById("EncryptedValue").innerHTML = "";
+        }
+    </script>
+</body>
+
+</html>
